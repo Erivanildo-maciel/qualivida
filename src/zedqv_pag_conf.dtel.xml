@@ -6,7 +6,7 @@
     <ROLLNAME>ZEDQV_PAG_CONF</ROLLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
     <DOMNAME>ZDQV_PAG_CONF</DOMNAME>
-    <DDTEXT>ZEDQV - Confirmação de pagamento</DDTEXT>
+    <DDTEXT>Confirmação de pagamento</DDTEXT>
     <DTELMASTER>E</DTELMASTER>
     <REFKIND>D</REFKIND>
    </DD04V>
