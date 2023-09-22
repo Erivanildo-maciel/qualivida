@@ -10,8 +10,12 @@
 *& <--  p2        text
 *&---------------------------------------------------------------------*
 FORM salvar_dados.
-
+  "Váriavel para receber o ID da Função Numbe_get_next
   DATA: lv_prx_id TYPE i.
+
+  "Váriáveis para salvar o usuário e a data no ato do cadastro
+  DATA: lv_user   TYPE sy-uzeit,
+        lv_cad_em TYPE sy-datum.
 
   CALL FUNCTION 'NUMBER_GET_NEXT'
     EXPORTING
@@ -36,6 +40,10 @@ FORM salvar_dados.
     LEAVE TO SCREEN 9000.
   ENDIF.
 
+  ls_pacientes-cad_em  = lv_cad_em.
+  ls_pacientes-cad_por = lv_user.
+
+  "Alimenta a tabela transparente apartir dos dados da tela de cadstro
   INSERT ztbqv_pacientes FROM ls_pacientes.
 
   IF sy-subrc = 0.
@@ -85,17 +93,18 @@ ENDFORM.
 FORM atualizar_dados .
 
   UPDATE ztbqv_pacientes
-     SET area_edica      = @ls_pacientes-area_edica,
+     SET area_medica     = @ls_pacientes-area_medica,
          consulta_conf   = @ls_pacientes-consulta_conf,
          data_nascimento = @ls_pacientes-data_nascimento,
          nome            = @ls_pacientes-nome,
          pagamento_conf  = @ls_pacientes-pagamento_conf,
          valor           = @ls_pacientes-valor
-   WHERE id_pac = @ls_up_pacientes-id_pac.
+   WHERE id_pac          = @ls_up_pacientes-id_pac.
 
   IF sy-subrc = 0.
 
     MESSAGE |Cadastro atualizado com sucesso!| TYPE 'S'.
+
   ELSE.
 
     MESSAGE |Falha na atualização do cadastro!| TYPE 'E'.
