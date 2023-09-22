@@ -92,6 +92,12 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 FORM atualizar_dados .
 
+  DATA: lv_up_por TYPE sy-uzeit,
+        lv_up_em  TYPE sy-datum.
+
+  ls_pacientes-alterado_por = lv_up_por.
+  ls_pacientes-alterado_em  = lv_up_em.
+
   UPDATE ztbqv_pacientes
      SET area_medica     = @ls_pacientes-area_medica,
          consulta_conf   = @ls_pacientes-consulta_conf,
