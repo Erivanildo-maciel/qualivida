@@ -10,19 +10,44 @@
 *& <--  p2        text
 *&---------------------------------------------------------------------*
 TYPE-POOLS: slis.
+
 FORM busca_dados.
 
+  "Consulta para retornar os dados da tabela de especialidades
   SELECT *
     FROM ztbqv_area_med
     INTO TABLE lt_area_medica
    WHERE especialidade IN so_area.
 
-  IF lt_area_medica IS INITIAL.
-    MESSAGE |Não temos atendimento para essa área no momento!| TYPE 'S' DISPLAY LIKE 'E'.
-    EXIT.
-  ELSE.
-    PERFORM show_alv_basico.
+  "Validação da tela de seleção.
+  IF p_basic EQ 'X'.
+
+    IF lt_area_medica IS NOT INITIAL.
+
+      PERFORM show_alv_basico.
+
+    ELSE.
+
+      MESSAGE |Não temos atendimento para essa área no momento!| TYPE 'S' DISPLAY LIKE 'E'.
+      EXIT.
+
+    ENDIF.
+
+  ELSEIF p_compl EQ 'X'.
+
+    IF lt_area_medica IS NOT INITIAL.
+
+      PERFORM show_alv_completo.
+
+    ELSE.
+
+      MESSAGE |Não temos atendimento para essa área no momento!| TYPE 'S' DISPLAY LIKE 'E'.
+      EXIT.
+
+    ENDIF.
+
   ENDIF.
+
 
 *  SELECT *
 *    FROM ztbqv_pacientes
@@ -45,7 +70,7 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM show_alv_basico.
+FORM show_alv_basico."Visualização de ALV básico
 
   DATA: lt_fieldcat_basico TYPE slis_t_fieldcat_alv,
         ls_layout_basico   TYPE slis_layout_alv.
@@ -58,6 +83,7 @@ FORM show_alv_basico.
       ct_fieldcat      = lt_fieldcat_basico[].
 
   ls_layout_basico-colwidth_optimize = 'X'. "SIGGA56 - Coloca as colunas com as larguras configuradas automaticamente
+  ls_layout_basico-zebra = 'X'.
 
   CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
@@ -68,5 +94,16 @@ FORM show_alv_basico.
     EXCEPTIONS
       program_error = 1
       OTHERS        = 2.
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form SHOW_ALV_COMPLETO
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM show_alv_completo .
 
 ENDFORM.

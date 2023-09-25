@@ -17,9 +17,27 @@
      <LENGTH>42</LENGTH>
     </item>
     <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>Modo de Visualização</ENTRY>
+     <LENGTH>40</LENGTH>
+    </item>
+    <item>
      <ID>R</ID>
      <ENTRY>Relatório Consultas/Pacientes Qualivida</ENTRY>
      <LENGTH>39</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_BASIC</KEY>
+     <ENTRY>@0U@Relatório Básico</ENTRY>
+     <LENGTH>28</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_COMPL</KEY>
+     <ENTRY>@0U@Relatório Completo</ENTRY>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>S</ID>
