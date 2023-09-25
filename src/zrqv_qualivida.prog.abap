@@ -6,6 +6,8 @@ INCLUDE zrqv_qualivida_scr.
 INCLUDE zrqv_qualivida_frm.
 INCLUDE zrqv_qualivida_imp.
 
+"AT SELECTION-SCREEN OUTPUT.
+
 START-OF-SELECTION.
 
-PERFORM busca_dados.
+  PERFORM busca_dados.
