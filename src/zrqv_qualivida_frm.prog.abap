@@ -131,3 +131,34 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
   APPEND ls_fieldcat TO t_fieldcat[].
 
 ENDFORM.
+
+FORM build_grid_a.
+
+  PERFORM f_build_fieldcat USING:
+
+  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica' CHANGING lt_fieldcata[],
+  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'   CHANGING lt_fieldcata[],
+  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'      CHANGING lt_fieldcata[],
+  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'      CHANGING lt_fieldcata[].
+
+  IF lo_grid_9000a IS INITIAL.
+
+    lo_container_9000a = NEW cl_gui_custom_container( container_name = 'CONTAINERA' ).
+    lo_grid_9000a      = NEW cl_gui_alv_grid( i_parent = lo_container_9000a ).
+
+    lo_grid_9000a->set_table_for_first_display(
+      EXPORTING
+        is_variant      = ls_variant
+        is_layout       = ls_layout
+        i_save          = 'A'
+      CHANGING
+        it_fieldcatalog = lt_fieldcata[]
+        it_outtab       = lt_area_medica[]
+    ).
+
+    lo_grid_9000a->set_gridtitle( 'Relatório Alv Completo' ).
+  ELSE.
+    lo_grid_9000a->refresh_table_display( ).
+  ENDIF.
+
+ENDFORM.
