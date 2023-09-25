@@ -106,4 +106,13 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 FORM show_alv_completo .
 
+  IF lt_area_medica IS NOT INITIAL AND lt_pacientes IS NOT INITIAL.
+
+    CALL SCREEN 9000.
+
+  ELSE.
+
+    MESSAGE |Dados não Localizados!| TYPE 'S' DISPLAY LIKE 'W'.
+
+  ENDIF.
 ENDFORM.
