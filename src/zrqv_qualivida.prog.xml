@@ -48,6 +48,9 @@
       <RPY_DYFLOW>
        <LINE>  MODULE pbo_9000.</LINE>
       </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>  MODULE show_grid_9000.</LINE>
+      </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>PROCESS AFTER INPUT.</LINE>

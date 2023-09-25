@@ -116,3 +116,18 @@ FORM show_alv_completo .
 
   ENDIF.
 ENDFORM.
+
+FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
+                            VALUE(p_field)     TYPE c
+                            VALUE(p_table)     TYPE c
+                            VALUE(p_coltext)   TYPE c
+                         CHANGING t_fieldcat   TYPE lvc_t_fcat.
+
+  DATA: ls_fieldcat LIKE LINE OF t_fieldcat[].
+  ls_fieldcat-fieldname = p_fieldname.
+  ls_fieldcat-ref_field = p_field.
+  ls_fieldcat-ref_table = p_table.
+  ls_fieldcat-coltext   = p_coltext.
+  APPEND ls_fieldcat TO t_fieldcat[].
+
+ENDFORM.
