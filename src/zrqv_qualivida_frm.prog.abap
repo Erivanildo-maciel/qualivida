@@ -122,10 +122,10 @@ FORM build_grid_a.
 
   PERFORM f_build_fieldcat USING:
 
-  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  ''  '' CHANGING lt_fieldcata[],
-  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''  '' CHANGING lt_fieldcata[],
-  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''  '' CHANGING lt_fieldcata[],
-  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''  '' CHANGING lt_fieldcata[].
+  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  'C500'  '' CHANGING lt_fieldcata[],
+  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''      '' CHANGING lt_fieldcata[],
+  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''      '' CHANGING lt_fieldcata[],
+  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''      '' CHANGING lt_fieldcata[].
 
   IF lo_grid_9000a IS INITIAL.
 
