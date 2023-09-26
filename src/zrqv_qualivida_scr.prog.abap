@@ -59,5 +59,5 @@ MODULE show_grid_9000 OUTPUT.
   ls_variant-report    = sy-repid.
 
   PERFORM build_grid_a.
-
+  PERFORM build_grid_b.
 ENDMODULE.
