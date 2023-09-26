@@ -43,6 +43,12 @@ FORM salvar_dados.
     LEAVE TO SCREEN 9000.
   ENDIF.
 
+  IF ls_pacientes-valor IS NOT INITIAL.
+    ls_pacientes-pagamento_conf = 'X'.
+  ELSE.
+    ls_pacientes-pagamento_conf = ' '.
+  ENDIF.
+
   ls_pacientes-cad_em  = lv_cad_em.
   ls_pacientes-cad_por = lv_user.
 

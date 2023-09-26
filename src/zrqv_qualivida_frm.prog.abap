@@ -105,6 +105,7 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
                             VALUE(p_coltext)   TYPE c
                             VALUE(p_emphasize) TYPE c
                             VALUE(p_just)      TYPE c
+                            VALUE(p_edit)      TYPE c
                          CHANGING t_fieldcat   TYPE lvc_t_fcat.
 
   DATA: ls_fieldcat LIKE LINE OF t_fieldcat[].
@@ -114,24 +115,28 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
   ls_fieldcat-coltext   = p_coltext.
   ls_fieldcat-emphasize = p_emphasize.
   ls_fieldcat-just      = p_just.
+  ls_fieldcat-edit      = p_edit.
   APPEND ls_fieldcat TO t_fieldcat[].
 
 ENDFORM.
 
 FORM build_grid_a.
 
+  "Montagem do fieldcat do grid da tabela de Especialidades
   PERFORM f_build_fieldcat USING:
 
-  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  'C500'  '' CHANGING lt_fieldcata[],
-  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''      '' CHANGING lt_fieldcata[],
-  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''      '' CHANGING lt_fieldcata[],
-  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''      '' CHANGING lt_fieldcata[].
+  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  'C500'  '' ''  CHANGING lt_fieldcata[],
+  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''      '' ''  CHANGING lt_fieldcata[],
+  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''      '' ''  CHANGING lt_fieldcata[],
+  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''      '' ''  CHANGING lt_fieldcata[].
 
   IF lo_grid_9000a IS INITIAL.
 
+    "Instância dos objetos
     lo_container_9000a = NEW cl_gui_custom_container( container_name = 'CONTAINERA' ).
     lo_grid_9000a      = NEW cl_gui_alv_grid( i_parent = lo_container_9000a ).
 
+    "Chamada de métodos
     lo_grid_9000a->set_ready_for_input( 1 )."Seleção múltipla de linhas
     lo_grid_9000a->set_table_for_first_display(
       EXPORTING
@@ -141,7 +146,7 @@ FORM build_grid_a.
         it_toolbar_excluding = lt_tool_bar[]
       CHANGING
         it_fieldcatalog      = lt_fieldcata[]
-        it_outtab            = lt_area_medica[]
+        it_outtab            = lt_area_medica_n[]
     ).
 
     lo_grid_9000a->set_gridtitle( 'Especialidades' ).
@@ -153,27 +158,38 @@ ENDFORM.
 
 FORM build_grid_b.
 
+  "Montagem do fieldcat do grid da tabela de pacientes
   PERFORM f_build_fieldcat USING:
 
- 'ID'              'ID'              'TY_PACIENTES'  'STATUS'           ''   'CENTER'  CHANGING lt_fieldcatb[],
- 'ID_PAC'          'ID_PAC'          'TY_PACIENTES'  'ID. Paciente'     ''   ''        CHANGING lt_fieldcatb[],
- 'NOME'            'NOME'            'TY_PACIENTES'  'Nome'             ''   'CENTER'  CHANGING lt_fieldcatb[],
- 'AREA_MEDICA'     'AREA_MEDICA'     'TY_PACIENTES'  'Especialidade'    ''   'CENTER'  CHANGING lt_fieldcatb[],
- 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'TY_PACIENTES'  'Dt. Nascimento'   ''   'CENTER'  CHANGING lt_fieldcatb[],
- 'CONSULTA_CONF'   'CONSULTA_CONF'   'TY_PACIENTES'  'Conf. Consulta'   ''   'CENTER'  CHANGING lt_fieldcatb[],
- 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'TY_PACIENTES'  'Conf. Pagamento'  ''   'CENTER'  CHANGING lt_fieldcatb[],
-* 'CAD_EM'          'CAD_EM'          'TY_PACIENTES'  'Cad. em'         ''   ''        CHANGING lt_fieldcatb[],
-* 'CAD_POR'         'CAD_POR'         'TY_PACIENTES'  'Cad. por'        ''   ''        CHANGING lt_fieldcatb[],
-* 'ALTERADO_EM'     'ALTERADO_EM'     'TY_PACIENTES'  'Alterado em'     ''   ''        CHANGING lt_fieldcatb[],
-* 'ALTERADO_POR'    'ALTERADO_POR'    'TY_PACIENTES'  'Alterado por'    ''   ''        CHANGING lt_fieldcatb[],
- 'VALOR'           'VALOR'           'TY_PACIENTES'  'Valor'            ''   ''        CHANGING lt_fieldcatb[].
+ 'ID'              'ID'              'TY_PACIENTES'  'STATUS'           ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+ 'ID_PAC'          'ID_PAC'          'TY_PACIENTES'  'ID. Paciente'     ''   ''        ''  CHANGING lt_fieldcatb[],
+ 'NOME'            'NOME'            'TY_PACIENTES'  'Nome'             ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+ 'AREA_MEDICA'     'AREA_MEDICA'     'TY_PACIENTES'  'Especialidade'    ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+ 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'TY_PACIENTES'  'Dt. Nascimento'   ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+ 'CONSULTA_CONF'   'CONSULTA_CONF'   'TY_PACIENTES'  'Conf. Consulta'   ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+ 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'TY_PACIENTES'  'Conf. Pagamento'  ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
+* 'CAD_EM'          'CAD_EM'          'TY_PACIENTES'  'Cad. em'         ''   ''        ''  CHANGING lt_fieldcatb[],
+* 'CAD_POR'         'CAD_POR'         'TY_PACIENTES'  'Cad. por'        ''   ''        ''  CHANGING lt_fieldcatb[],
+* 'ALTERADO_EM'     'ALTERADO_EM'     'TY_PACIENTES'  'Alterado em'     ''   ''        ''  CHANGING lt_fieldcatb[],
+* 'ALTERADO_POR'    'ALTERADO_POR'    'TY_PACIENTES'  'Alterado por'    ''   ''        ''  CHANGING lt_fieldcatb[],
+ 'VALOR'           'VALOR'           'TY_PACIENTES'  'Valor'            ''   ''        'X'  CHANGING lt_fieldcatb[].
 
   IF lo_grid_9000b IS INITIAL.
 
+    "Instância dos objetos
     lo_container_9000b = NEW cl_gui_custom_container( container_name = 'CONTAINERB' ).
     lo_grid_9000b      = NEW cl_gui_alv_grid( i_parent = lo_container_9000b ).
+    lo_event_grid      = NEW lcl_event_grid( ).
 
+    "Chamada de métodos
     lo_grid_9000b->set_ready_for_input( 1 )."Seleção múltipla de linhas
+
+    "Permite alteração de dados no grid.
+    lo_grid_9000b->register_edit_event(
+      EXPORTING
+        i_event_id = cl_gui_alv_grid=>mc_evt_modified
+    ).
+
     lo_grid_9000b->set_table_for_first_display(
       EXPORTING
         is_variant           = ls_variant
@@ -186,6 +202,8 @@ FORM build_grid_b.
     ).
 
     lo_grid_9000b->set_gridtitle( 'Lista de Pacientes' ).
+
+    SET HANDLER lo_event_grid->data_changed FOR lo_grid_9000b.
   ELSE.
     lo_grid_9000b->refresh_table_display( ).
   ENDIF.
@@ -200,7 +218,34 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM configuration_of_tables .
+FORM configuration_of_tables.
+
+  DATA: ls_area_medica LIKE LINE OF lt_area_medica_n,
+        ls_celltab     LIKE LINE OF ls_area_medica-celltab.
+
+  "Percorre a tabela de especialidades para adicionar NEGRITO as colunas dt fim e dt inicio
+  "De acordo com a lógica seguinte.
+  LOOP AT lt_area_medica ASSIGNING FIELD-SYMBOL(<fs_negrito>).
+
+    FREE:ls_area_medica-celltab.
+
+    MOVE-CORRESPONDING <fs_negrito> TO ls_area_medica.
+
+    IF ls_area_medica-ativo EQ 'A'.
+      ls_celltab-fieldname = 'DATA_INICIO'.
+      ls_celltab-style = '00000121'.
+      INSERT ls_celltab INTO TABLE ls_area_medica-celltab.
+
+      ls_celltab-fieldname = 'DATA_FIM'.
+      ls_celltab-style = '00000121'.
+      INSERT ls_celltab INTO TABLE ls_area_medica-celltab.
+    ENDIF.
+
+    APPEND ls_area_medica TO lt_area_medica_n.
+  ENDLOOP.
+
+  "Percorre a tabela de pacientes para adicionar Ícone de semáforos e cores nas linhas
+  "de acordo com a cor do semáforo.
   LOOP AT lt_pacientes ASSIGNING FIELD-SYMBOL(<fs_pacientes>).
 
     IF <fs_pacientes>-consulta_conf EQ 'X' AND <fs_pacientes>-pagamento_conf EQ 'X'.
@@ -210,7 +255,7 @@ FORM configuration_of_tables .
       <fs_pacientes>-id = icon_yellow_light.
       <fs_pacientes>-color = 'C300'.
     ELSEIF <fs_pacientes>-consulta_conf EQ '' AND <fs_pacientes>-pagamento_conf EQ ''.
-      <fs_pacientes>-id = icon_RED_light.
+      <fs_pacientes>-id = icon_red_light.
       <fs_pacientes>-color = 'C600'.
     ENDIF.
 
@@ -219,6 +264,7 @@ ENDFORM.
 
 FORM reuse_alv_button.
 
+  "Remove os botões da toolbar.
   APPEND cl_gui_alv_grid=>mc_evt_delayed_change_select  TO lt_tool_bar.
   APPEND cl_gui_alv_grid=>mc_evt_delayed_move_curr_cell TO lt_tool_bar.
   APPEND cl_gui_alv_grid=>mc_evt_enter                  TO lt_tool_bar.
