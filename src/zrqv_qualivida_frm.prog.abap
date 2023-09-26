@@ -101,6 +101,8 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
                             VALUE(p_field)     TYPE c
                             VALUE(p_table)     TYPE c
                             VALUE(p_coltext)   TYPE c
+                            VALUE(p_emphasize) TYPE c
+                            VALUE(p_just)      TYPE c
                          CHANGING t_fieldcat   TYPE lvc_t_fcat.
 
   DATA: ls_fieldcat LIKE LINE OF t_fieldcat[].
@@ -108,6 +110,8 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
   ls_fieldcat-ref_field = p_field.
   ls_fieldcat-ref_table = p_table.
   ls_fieldcat-coltext   = p_coltext.
+  ls_fieldcat-emphasize = p_emphasize.
+  ls_fieldcat-just      = p_just.
   APPEND ls_fieldcat TO t_fieldcat[].
 
 ENDFORM.
@@ -116,24 +120,26 @@ FORM build_grid_a.
 
   PERFORM f_build_fieldcat USING:
 
-  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica' CHANGING lt_fieldcata[],
-  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'   CHANGING lt_fieldcata[],
-  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'      CHANGING lt_fieldcata[],
-  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'      CHANGING lt_fieldcata[].
+  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  ''  '' CHANGING lt_fieldcata[],
+  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''  '' CHANGING lt_fieldcata[],
+  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''  '' CHANGING lt_fieldcata[],
+  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''  '' CHANGING lt_fieldcata[].
 
   IF lo_grid_9000a IS INITIAL.
 
     lo_container_9000a = NEW cl_gui_custom_container( container_name = 'CONTAINERA' ).
     lo_grid_9000a      = NEW cl_gui_alv_grid( i_parent = lo_container_9000a ).
 
+    lo_grid_9000a->set_ready_for_input( 1 )."Seleção múltipla de linhas
     lo_grid_9000a->set_table_for_first_display(
       EXPORTING
-        is_variant      = ls_variant
-        is_layout       = ls_layout
-        i_save          = 'A'
+        is_variant           = ls_variant
+        is_layout            = ls_layout
+        i_save               = 'A'
+        it_toolbar_excluding = lt_tool_bar[]
       CHANGING
-        it_fieldcatalog = lt_fieldcata[]
-        it_outtab       = lt_area_medica[]
+        it_fieldcatalog      = lt_fieldcata[]
+        it_outtab            = lt_area_medica[]
     ).
 
     lo_grid_9000a->set_gridtitle( 'Especialidades' ).
@@ -147,36 +153,101 @@ FORM build_grid_b.
 
   PERFORM f_build_fieldcat USING:
 
- 'ID_PAC'          'ID_PAC'          'ZTBQV_PACIENTES'  'ID. Paciente'     CHANGING lt_fieldcatb[],
- 'NOME'            'NOME'            'ZTBQV_PACIENTES'  'Nome'             CHANGING lt_fieldcatb[],
- 'AREA_MEDICA'     'AREA_MEDICA'     'ZTBQV_PACIENTES'  'Especialidade'    CHANGING lt_fieldcatb[],
- 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'ZTBQV_PACIENTES'  'Dt. Nascimento'   CHANGING lt_fieldcatb[],
- 'CONSULTA_CONF'   'CONSULTA_CONF'   'ZTBQV_PACIENTES'  'Conf. Consulta'   CHANGING lt_fieldcatb[],
- 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'ZTBQV_PACIENTES'  'Conf. Pagamento'  CHANGING lt_fieldcatb[],
- 'CAD_EM'          'CAD_EM'          'ZTBQV_PACIENTES'  'Cad. em'          CHANGING lt_fieldcatb[],
- 'CAD_POR'         'CAD_POR'         'ZTBQV_PACIENTES'  'Cad. por'         CHANGING lt_fieldcatb[],
- 'ALTERADO_EM'     'ALTERADO_EM'     'ZTBQV_PACIENTES'  'Alterado em'      CHANGING lt_fieldcatb[],
- 'ALTERADO_POR'    'ALTERADO_POR'    'ZTBQV_PACIENTES'  'Alterado por'     CHANGING lt_fieldcatb[],
- 'VALOR'           'VALOR'           'ZTBQV_PACIENTES'  'Valor'            CHANGING lt_fieldcatb[].
+ 'ID_PAC'          'ID_PAC'          'ZTBQV_PACIENTES'  'ID. Paciente'     ''   ''        CHANGING lt_fieldcatb[],
+ 'NOME'            'NOME'            'ZTBQV_PACIENTES'  'Nome'             ''   'CENTER'  CHANGING lt_fieldcatb[],
+ 'AREA_MEDICA'     'AREA_MEDICA'     'ZTBQV_PACIENTES'  'Especialidade'    ''   'CENTER'  CHANGING lt_fieldcatb[],
+ 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'ZTBQV_PACIENTES'  'Dt. Nascimento'   ''   'CENTER'  CHANGING lt_fieldcatb[],
+ 'CONSULTA_CONF'   'CONSULTA_CONF'   'ZTBQV_PACIENTES'  'Conf. Consulta'   ''   'CENTER'  CHANGING lt_fieldcatb[],
+ 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'ZTBQV_PACIENTES'  'Conf. Pagamento'  ''   'CENTER'  CHANGING lt_fieldcatb[],
+* 'CAD_EM'          'CAD_EM'          'ZTBQV_PACIENTES'  'Cad. em'         ''   ''        CHANGING lt_fieldcatb[],
+* 'CAD_POR'         'CAD_POR'         'ZTBQV_PACIENTES'  'Cad. por'        ''   ''        CHANGING lt_fieldcatb[],
+* 'ALTERADO_EM'     'ALTERADO_EM'     'ZTBQV_PACIENTES'  'Alterado em'     ''   ''        CHANGING lt_fieldcatb[],
+* 'ALTERADO_POR'    'ALTERADO_POR'    'ZTBQV_PACIENTES'  'Alterado por'    ''   ''        CHANGING lt_fieldcatb[],
+ 'VALOR'           'VALOR'           'ZTBQV_PACIENTES'  'Valor'            ''   ''        CHANGING lt_fieldcatb[].
 
   IF lo_grid_9000b IS INITIAL.
 
     lo_container_9000b = NEW cl_gui_custom_container( container_name = 'CONTAINERB' ).
     lo_grid_9000b      = NEW cl_gui_alv_grid( i_parent = lo_container_9000b ).
 
+    lo_grid_9000b->set_ready_for_input( 1 )."Seleção múltipla de linhas
     lo_grid_9000b->set_table_for_first_display(
       EXPORTING
-        is_variant      = ls_variant
-        is_layout       = ls_layout
-        i_save          = 'A'
+        is_variant           = ls_variant
+        is_layout            = ls_layout
+        i_save               = 'A'
+        it_toolbar_excluding = lt_tool_bar[]
       CHANGING
-        it_fieldcatalog = lt_fieldcatb[]
-        it_outtab       = lt_pacientes[]
+        it_fieldcatalog      = lt_fieldcatb[]
+        it_outtab            = lt_pacientes[]
     ).
 
     lo_grid_9000b->set_gridtitle( 'Lista de Pacientes' ).
   ELSE.
     lo_grid_9000b->refresh_table_display( ).
   ENDIF.
+
+ENDFORM.
+
+FORM reuse_alv_button.
+
+APPEND cl_gui_alv_grid=>mc_evt_delayed_change_select  TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_evt_delayed_move_curr_cell TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_evt_enter                  TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_evt_modified               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_auf                     TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_average                 TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_back_classic            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_abc                TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_chain              TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_crbatch            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_crweb              TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_lineitems          TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_master_data        TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_more               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_report             TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_xint               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_call_xxl                TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_check                   TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_col_invisible           TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_col_optimize            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_count                   TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_current_variant         TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_data_save               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_delete_filter           TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_deselect_all            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_detail                  TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_excl_all                TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_expcrdata               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_expcrdesig              TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_expcrtempl              TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_expmdb                  TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_extend                  TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_f4                      TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_filter                  TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_find                    TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_fix_columns             TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_graph                   TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_help                    TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_info                    TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_load_variant            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_append_row          TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_copy                TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_copy_row            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_cut                 TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_delete_row          TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_insert_row          TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_move_row            TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_paste               TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_paste_new_row       TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_loc_undo                TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_maintain_variant        TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_maximum                 TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_minimum                 TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_pc_file                 TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_print                   TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_print_back              TO lt_tool_bar.
+APPEND cl_gui_alv_grid=>mc_fc_print_prev              TO lt_tool_bar.
+*APPEND cl_gui_alv_grid=>mc_fc_refresh                 TO lt_tool_bar.
 
 ENDFORM.

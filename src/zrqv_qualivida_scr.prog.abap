@@ -37,14 +37,15 @@ ENDMODULE.
 MODULE pai_9000 INPUT.
 
   CASE lv_okcode_9000.
-    WHEN 'BACK'.
+    WHEN 'BACK' OR '&F03' OR '&F15'.
       LEAVE TO SCREEN 0.
-    WHEN 'EXIT'.
+    WHEN 'EXIT' OR '&F12'.
       LEAVE PROGRAM.
     WHEN OTHERS.
   ENDCASE.
 
 ENDMODULE.
+
 
 *&---------------------------------------------------------------------*
 *& Module SHOW_GRID_9000 OUTPUT
@@ -58,6 +59,8 @@ MODULE show_grid_9000 OUTPUT.
   ls_layout-zebra      = 'X'.
   ls_variant-report    = sy-repid.
 
+  PERFORM reuse_alv_button.
   PERFORM build_grid_a.
   PERFORM build_grid_b.
+
 ENDMODULE.
