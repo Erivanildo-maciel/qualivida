@@ -57,6 +57,7 @@ MODULE show_grid_9000 OUTPUT.
   FREE lt_fieldcata.
   ls_layout-cwidth_opt = 'X'.
   ls_layout-zebra      = 'X'.
+  ls_layout-info_fname = 'COLOR'.
   ls_variant-report    = sy-repid.
 
   PERFORM reuse_alv_button.

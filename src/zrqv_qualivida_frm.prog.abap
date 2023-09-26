@@ -205,12 +205,13 @@ FORM configuration_of_tables .
 
     IF <fs_pacientes>-consulta_conf EQ 'X' AND <fs_pacientes>-pagamento_conf EQ 'X'.
       <fs_pacientes>-id = icon_green_light.
-
+      <fs_pacientes>-color = 'C500'.
     ELSEIF <fs_pacientes>-consulta_conf EQ 'X' AND <fs_pacientes>-pagamento_conf EQ ''.
       <fs_pacientes>-id = icon_yellow_light.
-
+      <fs_pacientes>-color = 'C300'.
     ELSEIF <fs_pacientes>-consulta_conf EQ '' AND <fs_pacientes>-pagamento_conf EQ ''.
       <fs_pacientes>-id = icon_RED_light.
+      <fs_pacientes>-color = 'C600'.
     ENDIF.
 
   ENDLOOP.

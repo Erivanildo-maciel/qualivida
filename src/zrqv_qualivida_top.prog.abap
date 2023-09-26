@@ -6,6 +6,7 @@ INCLUDE <icon>.
 TYPES: BEGIN OF ty_pacientes.
          INCLUDE TYPE ztbqv_pacientes.
          TYPES: id TYPE icon-id,
+             color TYPE char4,
        END OF ty_pacientes.
 
 DATA: lt_pac TYPE TABLE OF ty_pacientes,
