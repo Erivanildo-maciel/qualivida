@@ -12,7 +12,8 @@
 TYPE-POOLS: slis.
 
 FORM busca_dados.
-
+  FREE: lt_area_medica_n,
+        lt_pacientes.
   "Consulta para retornar os dados da tabela de especialidades
   SELECT *
     FROM ztbqv_area_med
@@ -90,13 +91,19 @@ FORM show_alv_completo .
 
   IF lt_area_medica IS NOT INITIAL AND lt_pacientes IS NOT INITIAL.
 
-    CALL SCREEN 9000.
+    IF lv_salvou_item = 'X'.
+      lo_grid_9000a->refresh_table_display( ).
+      lo_grid_9000b->refresh_table_display( ).
+    ELSE.
+      CALL SCREEN 9000."Chamada da tela principal
+    ENDIF.
 
   ELSE.
 
     MESSAGE |Dados não Localizados!| TYPE 'S' DISPLAY LIKE 'W'.
 
   ENDIF.
+
 ENDFORM.
 
 FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
@@ -106,6 +113,7 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
                             VALUE(p_emphasize) TYPE c
                             VALUE(p_just)      TYPE c
                             VALUE(p_edit)      TYPE c
+                            VALUE(p_hotspot)   TYPE c
                          CHANGING t_fieldcat   TYPE lvc_t_fcat.
 
   DATA: ls_fieldcat LIKE LINE OF t_fieldcat[].
@@ -116,6 +124,7 @@ FORM f_build_fieldcat USING VALUE(p_fieldname) TYPE c
   ls_fieldcat-emphasize = p_emphasize.
   ls_fieldcat-just      = p_just.
   ls_fieldcat-edit      = p_edit.
+  ls_fieldcat-hotspot   = p_hotspot.
   APPEND ls_fieldcat TO t_fieldcat[].
 
 ENDFORM.
@@ -125,16 +134,17 @@ FORM build_grid_a.
   "Montagem do fieldcat do grid da tabela de Especialidades
   PERFORM f_build_fieldcat USING:
 
-  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  'C500'  '' ''  CHANGING lt_fieldcata[],
-  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''      '' ''  CHANGING lt_fieldcata[],
-  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''      '' ''  CHANGING lt_fieldcata[],
-  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''      '' ''  CHANGING lt_fieldcata[].
+  'ESPECIALIDADE' 'ESPECIALIDADE' 'ZTBQV_AREA_MED'  'Área Médica'  'C500'  '' '' 'X'  CHANGING lt_fieldcata[],
+  'DATA_INICIO'   'DATA_INICIO'   'ZTBQV_AREA_MED'  'Dt Início'    ''      '' '' ''  CHANGING lt_fieldcata[],
+  'DATA_FIM'      'DATA_FIM'      'ZTBQV_AREA_MED'  'Dt Fim'       ''      '' '' ''  CHANGING lt_fieldcata[],
+  'ATIVO'         'ATIVO'         'ZTBQV_AREA_MED'  'Status'       ''      '' '' ''  CHANGING lt_fieldcata[].
 
   IF lo_grid_9000a IS INITIAL.
 
     "Instância dos objetos
     lo_container_9000a = NEW cl_gui_custom_container( container_name = 'CONTAINERA' ).
     lo_grid_9000a      = NEW cl_gui_alv_grid( i_parent = lo_container_9000a ).
+    lo_event_grid      = NEW lcl_event_grid( ).
 
     "Chamada de métodos
     lo_grid_9000a->set_ready_for_input( 1 )."Seleção múltipla de linhas
@@ -150,6 +160,7 @@ FORM build_grid_a.
     ).
 
     lo_grid_9000a->set_gridtitle( 'Especialidades' ).
+    set HANDLER lo_event_grid->hotspot_click FOR lo_grid_9000a.
   ELSE.
     lo_grid_9000a->refresh_table_display( ).
   ENDIF.
@@ -161,18 +172,18 @@ FORM build_grid_b.
   "Montagem do fieldcat do grid da tabela de pacientes
   PERFORM f_build_fieldcat USING:
 
- 'ID'              'ID'              'TY_PACIENTES'  'STATUS'           ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
- 'ID_PAC'          'ID_PAC'          'TY_PACIENTES'  'ID. Paciente'     ''   ''        ''  CHANGING lt_fieldcatb[],
- 'NOME'            'NOME'            'TY_PACIENTES'  'Nome'             ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
- 'AREA_MEDICA'     'AREA_MEDICA'     'TY_PACIENTES'  'Especialidade'    ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
- 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'TY_PACIENTES'  'Dt. Nascimento'   ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
- 'CONSULTA_CONF'   'CONSULTA_CONF'   'TY_PACIENTES'  'Conf. Consulta'   ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
- 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'TY_PACIENTES'  'Conf. Pagamento'  ''   'CENTER'  ''  CHANGING lt_fieldcatb[],
-* 'CAD_EM'          'CAD_EM'          'TY_PACIENTES'  'Cad. em'         ''   ''        ''  CHANGING lt_fieldcatb[],
-* 'CAD_POR'         'CAD_POR'         'TY_PACIENTES'  'Cad. por'        ''   ''        ''  CHANGING lt_fieldcatb[],
-* 'ALTERADO_EM'     'ALTERADO_EM'     'TY_PACIENTES'  'Alterado em'     ''   ''        ''  CHANGING lt_fieldcatb[],
-* 'ALTERADO_POR'    'ALTERADO_POR'    'TY_PACIENTES'  'Alterado por'    ''   ''        ''  CHANGING lt_fieldcatb[],
- 'VALOR'           'VALOR'           'TY_PACIENTES'  'Valor'            ''   ''        'X'  CHANGING lt_fieldcatb[].
+ 'ID'              'ID'              'TY_PACIENTES'  'STATUS'           ''   'CENTER'     ''    '' CHANGING lt_fieldcatb[],
+ 'ID_PAC'          'ID_PAC'          'ZTBQV_PACIENTES'  'ID. Paciente'     ''   ''        ''    '' CHANGING lt_fieldcatb[],
+ 'NOME'            'NOME'            'ZTBQV_PACIENTES'  'Nome'             ''   'CENTER'  ''    '' CHANGING lt_fieldcatb[],
+ 'AREA_MEDICA'     'AREA_MEDICA'     'ZTBQV_PACIENTES'  'Especialidade'    ''   'CENTER'  ''    '' CHANGING lt_fieldcatb[],
+ 'DATA_NASCIMENTO' 'DATA_NASCIMENTO' 'ZTBQV_PACIENTES'  'Dt. Nascimento'   ''   'CENTER'  ''    '' CHANGING lt_fieldcatb[],
+ 'CONSULTA_CONF'   'CONSULTA_CONF'   'ZTBQV_PACIENTES'  'Conf. Consulta'   ''   'CENTER'  ''    '' CHANGING lt_fieldcatb[],
+ 'PAGAMENTO_CONF'  'PAGAMENTO_CONF'  'ZTBQV_PACIENTES'  'Conf. Pagamento'  ''   'CENTER'  ''    '' CHANGING lt_fieldcatb[],
+* 'CAD_EM'          'CAD_EM'          'ZTBQV_PACIENTES'  'Cad. em'         ''   ''        ''    '' CHANGING lt_fieldcatb[],
+* 'CAD_POR'         'CAD_POR'         'ZTBQV_PACIENTES'  'Cad. por'        ''   ''        ''    '' CHANGING lt_fieldcatb[],
+* 'ALTERADO_EM'     'ALTERADO_EM'     'ZTBQV_PACIENTES'  'Alterado em'     ''   ''        ''    '' CHANGING lt_fieldcatb[],
+* 'ALTERADO_POR'    'ALTERADO_POR'    'ZTBQV_PACIENTES'  'Alterado por'    ''   ''        ''    '' CHANGING lt_fieldcatb[],
+ 'VALOR'           'VALOR'           'ZTBQV_PACIENTES'  'Valor'            ''   ''        'X'   ''  CHANGING lt_fieldcatb[].
 
   IF lo_grid_9000b IS INITIAL.
 
@@ -219,7 +230,7 @@ ENDFORM.
 *& <--  p2        text
 *&---------------------------------------------------------------------*
 FORM configuration_of_tables.
-
+  FREE: lt_area_medica_n.
   DATA: ls_area_medica LIKE LINE OF lt_area_medica_n,
         ls_celltab     LIKE LINE OF ls_area_medica-celltab.
 
@@ -260,6 +271,32 @@ FORM configuration_of_tables.
     ENDIF.
 
   ENDLOOP.
+
+ENDFORM.
+
+*&---------------------------------------------------------------------*
+*& Form SALVAR_DADOS_ALTERADOS_NO_GRID
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM salvar_alteracoes_grid.
+
+  UPDATE ztbqv_pacientes FROM TABLE lt_pacientes.
+
+  IF sy-subrc = 0.
+    COMMIT WORK.
+    lv_salvou_item = 'X'.
+    PERFORM busca_dados.
+    PERFORM configuration_of_tables.
+    MESSAGE |Dados salvos com sucesso!| TYPE 'S' DISPLAY LIKE 'W'.
+  ELSE.
+    ROLLBACK WORK.
+    MESSAGE |Erro na alteração dos dados| TYPE 'S' DISPLAY LIKE 'W'.
+  ENDIF.
+
 ENDFORM.
 
 FORM reuse_alv_button.

@@ -10,7 +10,7 @@
 *& <--  p2        text
 *&---------------------------------------------------------------------*
 FORM salvar_dados.
-  "Váriavel para receber o ID da Função Numbe_get_next
+  "Váriavel para receber o ID da Função Number_get_next
   DATA: lv_prx_id TYPE i.
 
   "Váriáveis para salvar o usuário e a data no ato do cadastro
@@ -52,8 +52,24 @@ FORM salvar_dados.
   ls_pacientes-cad_em  = lv_cad_em.
   ls_pacientes-cad_por = lv_user.
 
+  APPEND ls_pacientes TO lt_pacientes.
+
+  LOOP AT lt_pacientes INTO DATA(st_pac_upper).
+
+    st_pac_upper-area_medica = COND #( WHEN st_pac_upper-area_medica IS NOT INITIAL
+                                       THEN |{ ls_pacientes-area_medica }|
+                                       ELSE ls_pacientes-area_medica
+                                      ).
+
+    st_pac_upper-nome = COND #( WHEN st_pac_upper-nome IS NOT INITIAL
+                                THEN |{ ls_pacientes-nome }|
+                                ELSE ls_pacientes-nome
+                               ).
+
+  ENDLOOP.
+
   "Alimenta a tabela transparente apartir dos dados da tela de cadstro
-  INSERT ztbqv_pacientes FROM ls_pacientes.
+  INSERT ztbqv_pacientes FROM TABLE lt_pacientes.
 
   IF sy-subrc = 0.
 

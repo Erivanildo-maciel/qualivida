@@ -39,8 +39,13 @@ MODULE pai_9000 INPUT.
   CASE lv_okcode_9000.
     WHEN 'BACK' OR '&F03' OR '&F15'.
       LEAVE TO SCREEN 0.
+      CLEAR lv_salvou_item.
     WHEN 'EXIT' OR '&F12'.
       LEAVE PROGRAM.
+      CLEAR lv_salvou_item.
+    WHEN 'SAVE'.
+
+      PERFORM salvar_alteracoes_grid.
     WHEN OTHERS.
   ENDCASE.
 
