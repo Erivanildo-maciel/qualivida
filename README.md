@@ -1,7 +1,7 @@
 # Qualivida - Gestão de Negócios para Clínicas
 
 ## Descrição
-Este repositório contém a implementação de aplicações para gestão de negócios da clínica fictícia Qualivida. O objetivo principal é desenvolver programas que auxiliem no gerenciamento de médicos, pacientes e consultas, utilizando tecnologias SAP NetWeaver e ABAP.
+Este repositório contém a implementação de aplicações para gestão de negócios da clínica fictícia Qualivida. O objetivo principal é desenvolver programas que auxiliem no gerenciamento de médicos, pacientes e consultas, utilizando tecnologias SAP ABAP.
 
 ## Funcionalidades Implementadas
 - **ZTQV_CAD_PAC (Cadastro de Pacientes):** Transação para cadastro de novos pacientes, registrando dados como nome, área médica, data de nascimento, entre outros. Os dados são armazenados na tabela ZTBQV_PACIENTES.
@@ -22,16 +22,14 @@ Este repositório contém a implementação de aplicações para gestão de neg�
 - Utiliza dois grids na tela: o primeiro para especialidades médicas com detalhes de médicos e status, e o segundo para dados de pacientes com semáforos coloridos indicando o status da consulta e pagamento.
 ![image](https://github.com/Erivanildo-maciel/qualivida/assets/128848036/848dce52-2502-4ebd-9763-19ac783809d1)
 
-
 ## Tecnologias Utilizadas
-- **ABAP:** Desenvolvimento de programas, transações e relatórios utilizando ABAP.
-- **SAP NetWeaver:** Integração e administração de sistemas SAP NetWeaver para suportar as funcionalidades desenvolvidas.
+- **ABAP:** Desenvolvimento de programas, transações e relatórios utilizando ABAP e ABAP OO.
 
 ## Objetivos
-Este projeto foi desenvolvido como parte de um curso de SAP NetWeaver, adaptando conceitos de gestão para o cenário de uma clínica médica. O objetivo é demonstrar habilidades em desenvolvimento ABAP e integração com sistemas SAP.
+Desenvolver funcionalidades específicas que a empresa QUALIVIDA requer para gestão de seu negócio. O objetivo principal é o desenvolvimento abrangente de transações para gestão de médicos, pacientes e consultas.
 
 ## Como Contribuir
-Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests com melhorias, correções de bugs ou novas funcionalidades. Para grandes alterações, por favor, abra uma issue para discutir antes.
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests com melhorias, correções de bugs ou novas funcionalidades.
 
 ## Contato
-Para mais informações ou sugestões, entre em contato diretamente aqui no GitHub ou via e-mail [seu-email@exemplo.com].
+Para mais informações ou sugestões, entre em contato diretamente aqui no GitHub ou via e-mail [macielerivanildo@gmail.com].
