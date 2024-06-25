@@ -81,6 +81,7 @@ Onde serão gravados os dados referente aos médicos que atendem pela clínica. 
 | -------------- | ---------------- | ---- | ------- | ----------------------------- |
 | NOME           | ZEDQV_NOME       | CHAR | 25      | Nome do médico                |
 | ESPECIALIDADE  | ZEDQV_AREA       | CHAR | 25      | Área de atuação               |
+
 ![Captura de tela 2024-06-25 190623](https://github.com/Erivanildo-maciel/qualivida/assets/128848036/82fe260e-0709-49d3-8984-650b33bd2000)
 
 #### 2.6 Desenvolvimento do relatório ZRQV_QUALIVIDA
