@@ -1,7 +1,7 @@
 # Qualivida - Gestão de Negócios para Clínicas
 
 ## Descrição
-Este repositório contém a implementação de aplicações para gestão de negócios da clínica fictícia Qualivida. O objetivo principal é desenvolver programas que auxiliem no gerenciamento de médicos, pacientes e consultas, utilizando tecnologias SAP NetWeaver e ABAP.
+Este repositório contém a implementação de aplicações para gestão de negócios da clínica fictícia Qualivida. O objetivo principal é desenvolver programas que auxiliem no gerenciamento de médicos, pacientes e consultas, utilizando tecnologias SAP ABAP.
 
 ## Funcionalidades Implementadas
 - **ZTQV_CAD_PAC (Cadastro de Pacientes):** Transação para cadastro de novos pacientes, registrando dados como nome, área médica, data de nascimento, entre outros. Os dados são armazenados na tabela ZTBQV_PACIENTES.
@@ -98,5 +98,5 @@ Exibindo 2 grids na tela, no primeiro grid será exibido os dados para acompanha
 ![Captura de tela 2024-06-25 190800](https://github.com/Erivanildo-maciel/qualivida/assets/128848036/dbcc0bb0-393d-4b13-a881-9a0ac3364b2c)
 
 ## Tecnologias Utilizadas
-- **ABAP:** Desenvolvimento de programas, transações e relatórios utilizando ABAP, ABAP OO, MODULE-POOL.
+- **ABAP:** Desenvolvimento de programas, transações e relatórios utilizando ABAP, ABAP OO, MODULE-POOL entre outros.
 
