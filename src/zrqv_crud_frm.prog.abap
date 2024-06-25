@@ -95,7 +95,7 @@ FORM buscar_dados_id .
   SELECT SINGLE *
     FROM ztbqv_pacientes
     INTO ls_pacientes
-  WHERE id_pac = ls_up_pacientes-id_pac.
+   WHERE id_pac = ls_up_pacientes-id_pac.
 
   IF sy-subrc = 0.
     CALL SCREEN 9000.
@@ -126,6 +126,13 @@ FORM atualizar_dados .
   ls_pacientes-alterado_por = lv_up_por.
   ls_pacientes-alterado_em  = lv_up_em.
 
+*  Atualizar o campo pagamento confirmado na Atualização
+  IF ls_pacientes-valor IS INITIAL AND ls_pacientes-pagamento_conf IS NOT INITIAL .
+    ls_pacientes-pagamento_conf = ''.
+  ELSEIF ls_pacientes-valor IS NOT INITIAL AND ls_pacientes-pagamento_conf IS INITIAL .
+    ls_pacientes-pagamento_conf = 'X'.
+  ENDIF.
+
   UPDATE ztbqv_pacientes
      SET area_medica     = @ls_pacientes-area_medica,
          consulta_conf   = @ls_pacientes-consulta_conf,
@@ -143,7 +150,7 @@ FORM atualizar_dados .
 
   ELSE.
 
-    MESSAGE |Falha na atualização do cadastro!| TYPE 'E'.
+    MESSAGE |Erro na atualização do cadastro!| TYPE 'E'.
 
   ENDIF.
 
@@ -159,17 +166,17 @@ ENDFORM.
 FORM exibir_dados_id .
 
   SELECT
-    id_pac
-    nome
-    area_medica
-    data_nascimento
-    consulta_conf
-    pagamento_conf
-    valor
-    cad_em
-    cad_por
-    alterado_em
-    alterado_por
+         id_pac
+         nome
+         area_medica
+         data_nascimento
+         consulta_conf
+         pagamento_conf
+         valor
+         cad_em
+         cad_por
+         alterado_em
+         alterado_por
 
     FROM ztbqv_pacientes
     INTO TABLE ti_pacientes
@@ -178,7 +185,6 @@ FORM exibir_dados_id .
   IF sy-subrc <> 0.
     MESSAGE |Não foram encontrados dados para o id ({ ls_pacientes-id_pac })| TYPE 'I'.
   ENDIF.
-
 
   CALL METHOD cl_salv_table=>factory
     IMPORTING
@@ -189,6 +195,8 @@ FORM exibir_dados_id .
   PERFORM catalogo_campos.
 
   ir_alv->display( ).
+
+  PERFORM doble_click.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -272,5 +280,16 @@ FORM catalogo_campos .
   o_column->set_medium_text( 'Alt. por' ).
   o_column->set_long_text(   'Alterado por' ).
   o_column->set_output_length( 25 ).
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form DOBLE_CLICK
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM doble_click .
 
 ENDFORM.

@@ -8,10 +8,12 @@
 *&---------------------------------------------------------------------*
 AT SELECTION-SCREEN.
 MODULE pbo_9000 OUTPUT.
+
   SET PF-STATUS 'GUI_SATAUS_9000'.
   IF sy-tcode = 'ZTQV_CAD_PAC'.
     SET TITLEBAR 'TITLE_9000'.
   ELSEIF sy-tcode = 'ZTQV_UP_PAC'.
+    SET PF-STATUS 'GUI_SATAUS_9002'.
     SET TITLEBAR 'TITLE_9001'.
   ENDIF.
 
@@ -22,6 +24,7 @@ ENDMODULE.
 *       text
 *----------------------------------------------------------------------*
 MODULE pai_9000 INPUT.
+
   CASE sy-ucomm.
     WHEN 'SAVE'.
       IF sy-tcode = 'ZTQV_CAD_PAC'.
@@ -38,6 +41,7 @@ MODULE pai_9000 INPUT.
       LEAVE PROGRAM.
     WHEN OTHERS.
   ENDCASE.
+
 ENDMODULE.
 
 *&---------------------------------------------------------------------*
@@ -56,7 +60,7 @@ ENDMODULE.
 *----------------------------------------------------------------------*
 MODULE pai_9001 INPUT.
   CASE sy-ucomm.
-    WHEN 'EXEC'.
+    WHEN 'EXEC' OR ''.
       PERFORM buscar_dados_id.
     WHEN '&F03'.
       LEAVE TO SCREEN 0.

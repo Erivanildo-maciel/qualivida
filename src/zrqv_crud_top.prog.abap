@@ -14,7 +14,7 @@ DATA: lt_pacientes TYPE TABLE OF ztbqv_pacientes,
 "Classe para exibir os dados como alv.
 DATA: ir_alv TYPE REF TO cl_salv_table.
 
-"Tabela de saida para o alv
+"Tabela de saida para o alv, para a visualização dos dados de pacientes
 TYPES:
   BEGIN OF ty_pacientes,
     id_pac          TYPE ztbqv_pacientes-id_pac,
@@ -28,7 +28,7 @@ TYPES:
     cad_por         TYPE ztbqv_pacientes-cad_por,
     alterado_em     TYPE ztbqv_pacientes-alterado_em,
     alterado_por    TYPE ztbqv_pacientes-alterado_por,
- END OF ty_pacientes.
+  END OF ty_pacientes.
 
 DATA: ti_pacientes TYPE TABLE OF ty_pacientes,
       st_pac       TYPE ty_pacientes.

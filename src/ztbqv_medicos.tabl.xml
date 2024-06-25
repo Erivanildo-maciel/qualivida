@@ -21,7 +21,7 @@
    </DD09L>
    <DD03P_TABLE>
     <DD03P>
-     <FIELDNAME>MADT</FIELDNAME>
+     <FIELDNAME>MANDT</FIELDNAME>
      <KEYFLAG>X</KEYFLAG>
      <ROLLNAME>MANDT</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
@@ -45,6 +45,12 @@
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
    </DD03P_TABLE>
+   <TABL_EXTRAS>
+    <TDDAT>
+     <TABNAME>ZTBQV_MEDICOS</TABNAME>
+     <CCLASS>&amp;NC&amp;</CCLASS>
+    </TDDAT>
+   </TABL_EXTRAS>
   </asx:values>
  </asx:abap>
 </abapGit>

@@ -19,7 +19,7 @@
       <TYPE>N</TYPE>
       <NEXTSCREEN>9000</NEXTSCREEN>
       <LINES>027</LINES>
-      <COLUMNS>123</COLUMNS>
+      <COLUMNS>125</COLUMNS>
      </HEADER>
      <CONTAINERS>
       <RPY_DYCATT>
@@ -33,7 +33,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>FRAME</TYPE>
        <NAME>%#AUTOTEXT001</NAME>
-       <TEXT>Dados_do_paciente_____________________________________</TEXT>
+       <TEXT>Cadastro_de_paciente__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>055</LENGTH>
@@ -46,8 +46,8 @@
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
-       <NAME>%#AUTOTEXT008</NAME>
-       <TEXT>NOME</TEXT>
+       <NAME>%#AUTOTEXT002</NAME>
+       <TEXT>Nome</TEXT>
        <LINE>004</LINE>
        <COLUMN>020</COLUMN>
        <LENGTH>004</LENGTH>
@@ -55,6 +55,10 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
+       <FIXED_FONT>X</FIXED_FONT>
+       <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -63,7 +67,7 @@
        <NAME>LS_PACIENTES-NOME</NAME>
        <TEXT>_________________________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>025</LENGTH>
        <VISLENGTH>025</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -76,7 +80,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>%#AUTOTEXT003</NAME>
-       <TEXT>ESPECIALIDADE</TEXT>
+       <TEXT>Especialidade</TEXT>
        <LINE>005</LINE>
        <COLUMN>011</COLUMN>
        <LENGTH>013</LENGTH>
@@ -84,7 +88,9 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
        <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -93,7 +99,7 @@
        <NAME>LS_PACIENTES-AREA_MEDICA</NAME>
        <TEXT>_________________________</TEXT>
        <LINE>005</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>025</LENGTH>
        <VISLENGTH>025</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -106,7 +112,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>%#AUTOTEXT004</NAME>
-       <TEXT>DATA_DE_NASCIMENTO</TEXT>
+       <TEXT>Data_de_nascimento</TEXT>
        <LINE>006</LINE>
        <COLUMN>006</COLUMN>
        <LENGTH>018</LENGTH>
@@ -114,7 +120,9 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
        <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -123,7 +131,7 @@
        <NAME>LS_PACIENTES-DATA_NASCIMENTO</NAME>
        <TEXT>__________</TEXT>
        <LINE>006</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -136,7 +144,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>%#AUTOTEXT005</NAME>
-       <TEXT>CONFIRMAR_CONSULTA</TEXT>
+       <TEXT>Confirmar_consulta</TEXT>
        <LINE>007</LINE>
        <COLUMN>006</COLUMN>
        <LENGTH>018</LENGTH>
@@ -144,7 +152,9 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
        <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -153,7 +163,7 @@
        <NAME>LS_PACIENTES-CONSULTA_CONF</NAME>
        <TEXT>_</TEXT>
        <LINE>007</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>001</LENGTH>
        <VISLENGTH>001</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -166,7 +176,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>%#AUTOTEXT006</NAME>
-       <TEXT>CONFIRMAR_PAGAMENTO</TEXT>
+       <TEXT>Confirmar_pagamento</TEXT>
        <LINE>008</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>019</LENGTH>
@@ -174,7 +184,9 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
        <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -183,7 +195,7 @@
        <NAME>LS_PACIENTES-PAGAMENTO_CONF</NAME>
        <TEXT>_</TEXT>
        <LINE>008</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>001</LENGTH>
        <VISLENGTH>001</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -196,7 +208,7 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>%#AUTOTEXT007</NAME>
-       <TEXT>VALOR</TEXT>
+       <TEXT>Valor</TEXT>
        <LINE>009</LINE>
        <COLUMN>019</COLUMN>
        <LENGTH>005</LENGTH>
@@ -204,7 +216,9 @@
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <RIGHT_JUST>X</RIGHT_JUST>
        <LABELLEFT>X</LABELLEFT>
+       <LABELRIGHT>X</LABELRIGHT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -213,7 +227,7 @@
        <NAME>LS_PACIENTES-VALOR</NAME>
        <TEXT>__________</TEXT>
        <LINE>009</LINE>
-       <COLUMN>025</COLUMN>
+       <COLUMN>026</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -3232,7 +3246,7 @@
     <TIT>
      <RSMPE_TITT>
       <CODE>TITLE_9000</CODE>
-      <TEXT>Cadastrar consultas</TEXT>
+      <TEXT>Cadastrar Pacientes</TEXT>
      </RSMPE_TITT>
      <RSMPE_TITT>
       <CODE>TITLE_9001</CODE>
